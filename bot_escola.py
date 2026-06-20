@@ -5,13 +5,13 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext, MessageHandler, Filters
 
 # Token do bot vem da variável de ambiente
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("8813762512:AAGLXuXY6aQBmJKl_dVyOcXGkfHnO8EFCd0")
 
 fila = []
 modo = {}
 
 # IDs dos funcionários autorizados
-ATENDENTES = [123456789, 987654321]  # substitua pelos IDs reais
+ATENDENTES = [1610344, 203122]  # substitua pelos IDs reais
 
 # Variáveis de configuração (link ou descricao)
 MODO_BIBLIOTECA = "link"        # "link" ou "descricao"
