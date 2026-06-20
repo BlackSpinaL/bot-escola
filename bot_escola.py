@@ -1,18 +1,19 @@
+# -*- coding: utf-8 -*-
 import os
 import datetime
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext, MessageHandler, Filters
 
-# Token do bot vem da vari·vel de ambiente
+# Token do bot vem da vari√°vel de ambiente
 TOKEN = os.getenv("8813762512:AAGLXuXY6aQBmJKl_dVyOcXGkfHnO8EFCd0")
 
 fila = []
 modo = {}
 
-# IDs dos funcion·rios autorizados
+# IDs dos funcion√°rios autorizados
 ATENDENTES = [123456789, 987654321]  # substitua pelos IDs reais
 
-# Vari·veis de configuraÁ„o (link ou descricao)
+# Vari√°veis de configura√ß√£o (link ou descricao)
 MODO_BIBLIOTECA = "link"       # "link" ou "descricao"
 MODO_CALENDARIO = "link"       # "link" ou "descricao"
 MODO_CARDAPIO = "descricao"    # "link" ou "descricao"
@@ -27,20 +28,20 @@ def dentro_do_horario():
 
 def start(update: Update, context: CallbackContext):
     if not dentro_do_horario():
-        update.message.reply_text("? Atendimento autom·tico funciona apenas das 07h ‡s 18h.")
+        update.message.reply_text("? Atendimento autom√°tico funciona apenas das 07h √†s 18h.")
         return
 
     keyboard = [
         [InlineKeyboardButton("?? Sou Aluno(a)", callback_data='aluno')],
-        [InlineKeyboardButton("???????? Sou Pai ou Respons·vel", callback_data='pai')],
+        [InlineKeyboardButton("???????? Sou Pai ou Respons√°vel", callback_data='pai')],
         [InlineKeyboardButton("????? Sou Servidor(a)", callback_data='servidor')],
-        [InlineKeyboardButton("?? P˙blico Externo", callback_data='externo')],
+        [InlineKeyboardButton("?? P√∫blico Externo", callback_data='externo')],
         [InlineKeyboardButton("?? Secretaria Escolar", callback_data='secretaria')],
-        [InlineKeyboardButton("?? Outros ServiÁos", callback_data='outros')],
+        [InlineKeyboardButton("?? Outros Servi√ßos", callback_data='outros')],
         [InlineKeyboardButton("?? Falar com Atendente", callback_data='fila')],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text("Bem-vindo ao atendimento autom·tico! Escolha uma opÁ„o:", reply_markup=reply_markup)
+    update.message.reply_text("Bem-vindo ao atendimento autom√°tico! Escolha uma op√ß√£o:", reply_markup=reply_markup)
 
 def button(update: Update, context: CallbackContext):
     query = update.callback_query
@@ -51,33 +52,33 @@ def button(update: Update, context: CallbackContext):
     if opcao == 'aluno':
         modo[usuario] = 'aluno'
         query.edit_message_text(
-            text="?? OpÁıes para Aluno:\n"
+            text="?? Op√ß√µes para Aluno:\n"
                  "1 - Achados e Perdidos\n"
                  "2 - Biblioteca\n"
-                 "3 - Card·pio da Merenda\n"
+                 "3 - Card√°pio da Merenda\n"
                  "4 - Manual do Aluno\n"
                  "5 - Monitoria Disciplinar\n\n"
-                 "Digite o n˙mero da opÁ„o:"
+                 "Digite o n√∫mero da op√ß√£o:"
         )
     elif opcao == 'pai':
         modo[usuario] = 'pai'
         query.edit_message_text(
-            text="???????? OpÁıes para Pais:\n"
-                 "1 - Calend·rio Escolar\n"
+            text="???????? Op√ß√µes para Pais:\n"
+                 "1 - Calend√°rio Escolar\n"
                  "2 - Contatos da Escola\n"
-                 "3 - DireÁ„o PedagÛgica\n"
-                 "4 - Supervis„o PedagÛgica\n\n"
-                 "Digite o n˙mero da opÁ„o:"
+                 "3 - Dire√ß√£o Pedag√≥gica\n"
+                 "4 - Supervis√£o Pedag√≥gica\n\n"
+                 "Digite o n√∫mero da op√ß√£o:"
         )
     elif opcao == 'fila':
         nome = query.from_user.username or query.from_user.first_name
         if nome not in fila:
             fila.append(nome)
             posicao = len(fila)
-            query.edit_message_text(text=f"?? VocÍ entrou na fila de atendimento.\nSua posiÁ„o È: {posicao}")
+            query.edit_message_text(text=f"?? Voc√™ entrou na fila de atendimento.\nSua posi√ß√£o √©: {posicao}")
         else:
             posicao = fila.index(nome) + 1
-            query.edit_message_text(text=f"?? VocÍ j· est· na fila.\nSua posiÁ„o È: {posicao}")
+            query.edit_message_text(text=f"?? Voc√™ j√° est√° na fila.\nSua posi√ß√£o √©: {posicao}")
 
 def resposta(update: Update, context: CallbackContext):
     usuario = update.message.from_user.id
@@ -93,25 +94,25 @@ def resposta(update: Update, context: CallbackContext):
                 else:
                     update.message.reply_text("?? Biblioteca - Consulte diretamente na secretaria.")
                 return
-            elif escolha == "3":  # Card·pio
+            elif escolha == "3":  # Card√°pio
                 if MODO_CARDAPIO == "link":
-                    update.message.reply_text("??? Card·pio da Merenda:\nhttps://escola.com/cardapio.pdf")
+                    update.message.reply_text("??? Card√°pio da Merenda:\nhttps://escola.com/cardapio.pdf")
                 else:
-                    update.message.reply_text("??? Card·pio disponÌvel na escola.")
+                    update.message.reply_text("??? Card√°pio dispon√≠vel na escola.")
                 return
             elif escolha == "4":  # Manual
                 if MODO_MANUAL == "link":
                     update.message.reply_text("?? Manual do Aluno:\nhttps://escola.com/manual.pdf")
                 else:
-                    update.message.reply_text("?? Manual disponÌvel na secretaria.")
+                    update.message.reply_text("?? Manual dispon√≠vel na secretaria.")
                 return
 
         elif categoria == 'pai':
-            if escolha == "1":  # Calend·rio
+            if escolha == "1":  # Calend√°rio
                 if MODO_CALENDARIO == "link":
-                    update.message.reply_text("?? Calend·rio Escolar:\nhttps://escola.com/calendario.pdf")
+                    update.message.reply_text("?? Calend√°rio Escolar:\nhttps://escola.com/calendario.pdf")
                 else:
-                    update.message.reply_text("?? Calend·rio disponÌvel na secretaria.")
+                    update.message.reply_text("?? Calend√°rio dispon√≠vel na secretaria.")
                 return
 
         elif categoria == 'secretaria':
@@ -119,33 +120,33 @@ def resposta(update: Update, context: CallbackContext):
                 if MODO_CERTIFICADOS == "link":
                     update.message.reply_text("?? Certificados:\nhttps://escola.com/certificados.pdf")
                 else:
-                    update.message.reply_text("?? Certificados disponÌveis na secretaria.")
+                    update.message.reply_text("?? Certificados dispon√≠veis na secretaria.")
                 return
 
-        update.message.reply_text("? OpÁ„o inv·lida, digite um n˙mero v·lido.")
+        update.message.reply_text("? Op√ß√£o inv√°lida, digite um n√∫mero v√°lido.")
 
 def chamar_proximo(update: Update, context: CallbackContext):
     usuario = update.message.from_user.id
     if usuario not in ATENDENTES:
-        update.message.reply_text("? VocÍ n„o tem permiss„o para chamar a fila.")
+        update.message.reply_text("? Voc√™ n√£o tem permiss√£o para chamar a fila.")
         return
 
     if fila:
         proximo = fila.pop(0)
-        update.message.reply_text(f"? O prÛximo da fila È: {proximo}")
+        update.message.reply_text(f"? O pr√≥ximo da fila √©: {proximo}")
     else:
-        update.message.reply_text("?? N„o h· ninguÈm na fila.")
+        update.message.reply_text("?? N√£o h√° ningu√©m na fila.")
 
 def ver_fila(update: Update, context: CallbackContext):
     usuario = update.message.from_user.id
     if usuario not in ATENDENTES:
-        update.message.reply_text("? VocÍ n„o tem permiss„o para ver a fila.")
+        update.message.reply_text("? Voc√™ n√£o tem permiss√£o para ver a fila.")
         return
 
     if fila:
-        update.message.reply_text(f"?? H· {len(fila)} pessoas na fila:\n" + "\n".join(fila))
+        update.message.reply_text(f"?? H√° {len(fila)} pessoas na fila:\n" + "\n".join(fila))
     else:
-        update.message.reply_text("?? N„o h· ninguÈm na fila.")
+        update.message.reply_text("?? N√£o h√° ningu√©m na fila.")
 
 def main():
     updater = Updater(TOKEN, use_context=True)
