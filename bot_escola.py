@@ -28,7 +28,7 @@ def dentro_do_horario():
 
 def start(update: Update, context: CallbackContext):
     if not dentro_do_horario():
-        update.message.reply_text("⏰ Atendimento automático funciona apenas das 07h às 18h.")
+        update.message.reply_text("⏰ Atendimento automático funciona apenas das 07h às 18h de segunda a sexta.")
         return
 
     keyboard = [
