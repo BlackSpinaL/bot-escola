@@ -5,7 +5,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, CallbackContext, MessageHandler, Filters
 
 # Token do bot vem da variável de ambiente
-TOKEN = os.getenv("8813762512:AAGLXuXY6aQBmJKl_dVyOcXGkfHnO8EFCd0")
+TOKEN = os.getenv("TOKEN")
 
 fila = []
 modo = {}
