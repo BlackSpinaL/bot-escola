@@ -149,6 +149,8 @@ def ver_fila(update: Update, context: CallbackContext):
         update.message.reply_text("📭 Não há ninguém na fila.")
 
 def main():
+    if not TOKEN:
+        raise ValueError("TOKEN não encontrado. Configure a variável de ambiente no Railway.")
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
