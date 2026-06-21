@@ -14,10 +14,10 @@ modo = {}
 ATENDENTES = [1610344, 203122]  # substitua pelos IDs reais
 
 # Variáveis de configuração (link ou descricao)
-MODO_BIBLIOTECA = "link"        # "link" ou "descricao"
-MODO_CALENDARIO = "link"        # "link" ou "descricao"
+MODO_BIBLIOTECA = "descricao"        # "link" ou "descricao"
+MODO_CALENDARIO = "descricao"        # "link" ou "descricao"
 MODO_CARDAPIO = "descricao"     # "link" ou "descricao"
-MODO_MANUAL = "link"            # "link" ou "descricao"
+MODO_MANUAL = "descricao"            # "link" ou "descricao"
 MODO_CERTIFICADOS = "descricao" # "link" ou "descricao"
 
 def dentro_do_horario():
